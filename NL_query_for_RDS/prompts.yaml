@@ -1,0 +1,396 @@
+- answer: There are 100 rows in the artists table.
+  input: How many rows are in the patient_admissions table?
+  sql_cmd: SELECT count(*) FROM patient_admissions;
+  sql_result: '[(100,)]'
+  table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    234882,"04-01-2017","04-03-2017",53,M,U,E,Apr-17,3,3,DISCHARGE
+    */
+
+- answer: There are 2 types of admissions present.
+  input: How many types of admissions are there?
+  sql_cmd: SELECT count(distinct type_of_admission_emergency_or_opd) FROM patient_admissions;
+  sql_result: '[(2,)]'
+  table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,R,O,Apr-17,4,1,DISCHARGE
+    */
+
+- answer: There are 32 patients admitted who are from Rural background.
+  input: How many patients are admitted who are from Rural background?
+  sql_cmd: SELECT count(*) FROM patient_admissions WHERE rural = 'R';
+  sql_result: '[(32,)]'
+  table_info: |
+    table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,R,O,Apr-17,4,1,DISCHARGE
+    */
+
+- answer: There are 50 patients admitted who are from Urban background.
+  input: How many patients are admitted who are from Urban background?
+  sql_cmd: SELECT count(*) FROM patient_admissions WHERE rural = 'U';
+  sql_result: '[(50,)]'
+  table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,U,O,Apr-17,4,1,DISCHARGE
+    */
+
+- answer: There are 11 patients who stayed more than 10 days.
+  input: How many patients have stayed more than 10 days?
+  sql_cmd: SELECT count(*) FROM patient_admissions where duration_of_stay > 10;
+  sql_result: '[(11,)]'
+  table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,U,O,Apr-17,4,1,DISCHARGE
+    */
+
+- answer: There are 30 patients having diabetes mellitus and above the age of 50.
+  input: How many patients are having diabetes mellitus and above the age of 50?
+  sql_cmd: |
+    SELECT count(*)
+    FROM patient_admissions
+    JOIN diagnosis_report ON patient_admissions.admission_number = diagnosis_report.admission_number
+    WHERE patient_admissions.age > 50;
+  sql_result: '[(30,)]'
+  table_info: |
+    table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,U,O,Apr-17,4,1,DISCHARGE
+    */
+
+    CREATE TABLE public.diagnosis_report (
+      admission_number int4 NOT NULL,
+      diabetes_mellitus int4 NULL,
+      hypertension int4 NULL,
+      coronary_artery_disease int4 NULL,
+      cardiomyopathy int4 NULL,
+      chronic_kidney_disease int4 NULL,
+      haemoglobin float4 NULL,
+      total_leukocytes_count float4 NULL,
+      platelets varchar(50) NULL,
+      glucose varchar(50) NULL,
+      urea int4 NULL,
+      creatinine float4 NULL,
+      b_type_natriuretic_peptide varchar(50) NULL,
+      raised_cardiac_enzymes int4 NULL,
+      anaemia int4 NULL,
+      heart_failure int4 NULL,
+      pulmonary_embolism int4 NULL,
+      chest_infection int4 NULL
+    );
+
+    /*
+    3 rows from diagnosis_report table:
+    "admission_number","diabetes_mellitus","hypertension","coronary_artery_disease","cardiomyopathy","chronic_kidney_disease","haemoglobin","total_leukocytes_count","platelets","glucose","urea","creatinine","b_type_natriuretic_peptide","raised_cardiac_enzymes","anaemia","heart_failure","pulmonary_embolism","chest_infection"
+    234735,1,0,0,0,0,9.5,16.1,"337","80",34,0.9,"1880",1,1,1,0,0
+    234696,0,1,1,0,0,13.7,9.0,"149","112",18,0.9,"",0,0,0,0,0
+    234882,1,0,1,0,0,10.6,14.7,"329","187",93,2.3,"210",0,0,1,0,0
+    */
+
+- answer: |
+    The 10 patients diagnosed with maximum glucode level are:
+    1. 325610 -	99
+    2. 235864 -	98
+    3. 236064 -	96
+    4. 232434 -	96
+    5. 413903 -	92
+    6. 371985 -	91
+    7. 279401 -	85
+    8. 222975 -	85
+    9. 380246 -	84
+    10. 234735 -	80
+  input: Who are the 10 patients diagnosed with maximum glucode level? Return their admission number and glucose level.
+  sql_cmd: |
+    SELECT admission_number, glucose
+    FROM diagnosis_report 
+    where glucose is not null
+    ORDER BY glucose DESC
+    LIMIT 10;
+  sql_result: "[(325610, 99), (235864, 98), (236064, 96), (232434, 96), (413903, 92), (371985, 91), (279401, 85), (222975, 85), (380246, 84), (234735, 80)]"
+  table_info: |
+    table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,U,O,Apr-17,4,1,DISCHARGE
+    */
+
+- answer: There are 5 patients with alchohol habit.
+  input: How many patients are having the habit of alchohol?
+  sql_cmd: select count(*) from patient_habits where alcohol = 1;
+  sql_result: '[(5, )]'
+  table_info: |
+    table_info: |
+    CREATE TABLE public.patient_habits (
+      admission_number int4 NOT NULL,
+      smoking int4 NULL,
+      alcohol int4 NULL
+    );
+
+    /*
+    3 rows from artists table:
+    "admission_number","smoking","alcohol"
+    234735,0,0
+    234696,0,1
+    234882,0,0
+    */
+
+- answer: |
+    The five patient who are from urban background and having chest infection are:
+    1. 413903
+    2. 235557
+    3. 381591
+    4. 371985
+    5. 236928
+  input: list 5 patient's admission number who are from urban background and having chest infection
+  sql_cmd: |
+    SELECT patient_admissions.admission_number
+    FROM patient_admissions
+    JOIN diagnosis_report ON patient_admissions.admission_number = diagnosis_report.admission_number
+    WHERE lower(patient_admissions.rural) = 'u' and diagnosis_report.chest_infection = 1
+    limit 5;
+  sql_result: "[('413903',),('235557',),('381591',),('371985',),('236928',)]"
+  table_info: |
+    table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,U,O,Apr-17,4,1,DISCHARGE
+    */
+
+    CREATE TABLE public.diagnosis_report (
+      admission_number int4 NOT NULL,
+      diabetes_mellitus int4 NULL,
+      hypertension int4 NULL,
+      coronary_artery_disease int4 NULL,
+      cardiomyopathy int4 NULL,
+      chronic_kidney_disease int4 NULL,
+      haemoglobin float4 NULL,
+      total_leukocytes_count float4 NULL,
+      platelets varchar(50) NULL,
+      glucose varchar(50) NULL,
+      urea int4 NULL,
+      creatinine float4 NULL,
+      b_type_natriuretic_peptide varchar(50) NULL,
+      raised_cardiac_enzymes int4 NULL,
+      anaemia int4 NULL,
+      heart_failure int4 NULL,
+      pulmonary_embolism int4 NULL,
+      chest_infection int4 NULL
+    );
+
+    /*
+    3 rows from diagnosis_report table:
+    "admission_number","diabetes_mellitus","hypertension","coronary_artery_disease","cardiomyopathy","chronic_kidney_disease","haemoglobin","total_leukocytes_count","platelets","glucose","urea","creatinine","b_type_natriuretic_peptide","raised_cardiac_enzymes","anaemia","heart_failure","pulmonary_embolism","chest_infection"
+    234735,1,0,0,0,0,9.5,16.1,"337","80",34,0.9,"1880",1,1,1,0,0
+    234696,0,1,1,0,0,13.7,9.0,"149","112",18,0.9,"",0,0,0,0,0
+    234882,1,0,1,0,0,10.6,14.7,"329","187",93,2.3,"210",0,0,1,0,0
+    */
+
+- answer: |
+    The number of patients discharged within each type of admission are:
+    1. O - 23
+    2. E - 37
+  input: How many patients are discharged within each type of admission?
+  sql_cmd: |
+    SELECT type_of_admission_emergency_or_opd, count(*) 
+    FROM patient_admissions 
+    where outcome = 'DISCHARGE'
+    group by type_of_admission_emergency_or_opd;
+  sql_result: "[('O',23), ('E',37)]"
+  table_info: |
+    table_info: |
+    CREATE TABLE patient_admissions (
+      admission_number int4 NOT NULL,
+      date_of_admission varchar(50) NULL,
+      date_of_discharge varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural varchar(50) NULL,
+      type_of_admission_emergency_or_opd varchar(50) NULL,
+      month_year varchar(50) NULL,
+      duration_of_stay int4 NULL,
+      duration_of_intensive_unit_stay int4 NULL,
+      outcome varchar(50) NULL
+      CONSTRAINT patient_admissions_pk PRIMARY KEY (admission_number)
+    );
+
+    /*
+    3 rows from patient_admissions table:
+    "admission_number","date_of_admission","date_of_discharge","age","gender","rural","type_of_admission_emergency_or_opd","month_year","duration_of_stay","duration_of_intensive_unit_stay","outcome"
+    234735,"04-01-2017","04-03-2017",81,M,R,E,Apr-17,3,2,DISCHARGE
+    234696,"04-01-2017","04-05-2017",65,M,R,E,Apr-17,5,2,DISCHARGE
+    86443,"04-01-2017","04-04-2017",62,M,U,O,Apr-17,4,1,DISCHARGE
+    */
+
+- answer: Total of 100 patients have expired in the year of 2018.
+  input: How many patients are expired in the year of 2018?
+  sql_cmd: |
+    SELECT count(*)
+    FROM mortality
+    where  EXTRACT(YEAR FROM TO_DATE(date_of_brought_dead, 'MM-DD-YYYY')) = '2017';
+  sql_result: "[(100,)]"
+  table_info: |
+    CREATE TABLE public.mortality (
+      admission_number varchar(50) NULL,
+      age int4 NULL,
+      gender varchar(50) NULL,
+      rural_or_urban varchar(50) NULL,
+      date_of_brought_dead varchar(50) NULL
+    );
+
+    /*
+    3 rows from mortality table:
+    "admission_number","age","gender","rural_or_urban","date_of_brought_dead"
+    "235134",64,M,U,"04-02-2017"
+    "235138",50,F,R,"04-02-2017"
+    "236880",78,M,R,"04-04-2018"
+    */

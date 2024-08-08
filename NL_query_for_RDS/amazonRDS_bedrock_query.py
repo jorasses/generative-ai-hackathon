@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-import yaml
+import yaml, psycopg2
 from langchain.prompts.few_shot import FewShotPromptTemplate
 from langchain.prompts.prompt import PromptTemplate
 from langchain.sql_database import SQLDatabase
@@ -46,8 +46,14 @@ def rds_answer(question):
     sql_db_chain = load_few_shot_chain(llm, db, examples)
     # the answer created by Amazon Bedrock and ultimately passed back to the end user
     answer = sql_db_chain(question)
+
+    if 'graph' in question:
+        plot_data = run_aggregate_query(answer["intermediate_steps"][1])
+    else:
+        plot_data = None
+
     # Passing back both the generated SQL query and the final result in a natural language format
-    return answer["intermediate_steps"][1], answer["result"]
+    return answer["intermediate_steps"][1], answer["result"], plot_data
 
 
 def get_rds_uri():
@@ -137,3 +143,41 @@ def load_few_shot_chain(llm, db, examples):
         verbose=True,
         return_intermediate_steps=True,
     )
+
+
+# Function to run aggregate query using psycopg2
+def run_aggregate_query(query):
+    try:
+        rds_username = os.getenv('rds_username')
+        rds_password = os.getenv('rds_password')
+        rds_endpoint = os.getenv('rds_endpoint')
+        rds_port = os.getenv('rds_port')
+        rds_db_name = os.getenv('rds_db_name')
+
+        # Connect to your postgres DB
+        conn = psycopg2.connect(
+            dbname=rds_db_name,
+            user=rds_username,
+            password=rds_password,
+            host=rds_endpoint,
+            port=rds_port
+        )
+
+        # Create a cursor object
+        cur = conn.cursor()
+
+        # Execute the query
+        cur.execute(query)
+
+        # Fetch all the results
+        results = cur.fetchall()
+
+        # Close the cursor and connection
+        cur.close()
+        conn.close()
+
+        return results
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return None

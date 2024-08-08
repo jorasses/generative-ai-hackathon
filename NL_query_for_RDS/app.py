@@ -1,8 +1,28 @@
 import streamlit as st
 from amazonRDS_bedrock_query import rds_answer
+import matplotlib.pyplot as plt
+
+# Function to create and display the graph
+def create_graph(data):
+    if data:
+        categories = [row[0] for row in data]
+        counts = [row[1] for row in data]
+
+        # Create the bar chart
+        plt.figure(figsize=(10, 6))
+        plt.bar(categories, counts, color='skyblue')
+        plt.xlabel('Category')
+        plt.ylabel('Count')
+        plt.title('Count per Category')
+
+        # Display the graph in Streamlit within an expander
+        # with st.expander("Show Aggregate Data Visualization"):
+        st.pyplot(plt.gcf())
+    else:
+        st.warning("No data to display.")
 
 # title of the streamlit app
-st.title(f""":rainbow[Natural Language Query Against Amazon Relational Database Service]""")
+st.title(f"""Natural Language Query against RDS database""")
 
 # configuring values for session state
 if "messages" not in st.session_state:
@@ -19,7 +39,9 @@ if question := st.chat_input("Ask about your data stored in Amazon Relational Da
     with st.chat_message("user"):
         st.markdown(question)
 
-    table_context = '''always enclose the string values in single quotes.'''
+    table_context = 'always enclose the string values in single quotes.'
+    table_context += "Don't provide any graph or plot of data, just provide the natural language response."
+    table_context += "If the column name contains the word 'date' then cast them to type date."
     # append the question and the role (user) as a message to the session state
     st.session_state.messages.append({"role": "user",
                                       "content": table_context + question})
@@ -35,10 +57,15 @@ if question := st.chat_input("Ask about your data stored in Amazon Relational Da
             message_placeholder.markdown(f""" Answer:
                             {answer[1]}
                             """)
+
+            if answer[2]:
+                create_graph(answer[2])
+
             # writing the SQL query in code front end style on the sidebar
             with st.sidebar:
                 st.title(f""":green[The SQL command to get this answer was:]""")
                 st.code(answer[0], language="sql")
+
             # showing a completion message to the front end
             status.update(label="Question Answered...", state="complete", expanded=False)
     # appending the results to the session state
